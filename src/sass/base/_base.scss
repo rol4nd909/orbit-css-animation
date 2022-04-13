@@ -1,0 +1,18 @@
+body {
+  display: grid;
+  min-height: 100vh;
+  font-family: system-ui;
+  place-content: center;
+}
+
+.sr-only {
+  position: absolute;
+  overflow: hidden;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  white-space: nowrap;
+  clip: rect(0, 0, 0, 0);
+}

@@ -1,0 +1,212 @@
+.orbit {
+  --img-size: 11.25rem;
+  --circle-size: 7.5rem;
+
+  $total-items: 8; // number of circles
+  $radius: 13rem;
+
+  @keyframes move {
+    100% {
+      --transformMove: 14rem;
+    }
+  }
+
+  $self: &;
+
+  display: grid;
+  place-items: center;
+  position: relative;
+
+  &__images {
+    position: relative;
+    width: var(--img-size);
+    border-radius: 25%;
+    background-color: var(--blue-dark);
+    aspect-ratio: 1;
+
+    img {
+      position: absolute;
+      transition: opacity 0.5s ease-in-out;
+
+      &:not(:first-child):hover {
+        opacity: 0;
+      }
+    }
+  }
+
+  &__img-fade {
+    --hover-area: 3rem;
+
+    position: absolute;
+    inset: calc(var(--hover-area) * -1);
+    opacity: 0;
+    z-index: 1;
+    margin: var(--hover-area);
+    animation: fadeIn 1s ease 5s forwards;
+  }
+
+  &__circles {
+    display: grid;
+    position: absolute;
+    width: var(--img-size);
+    aspect-ratio: 1;
+    list-style: none;
+    place-items: center;
+    animation: rotate 60s linear 4s infinite normal forwards;
+    animation-play-state: var(--rotate-play-state, running);
+
+    &:hover {
+      --rotate-play-state: paused;
+    }
+  }
+
+  &__circle {
+    position: absolute;
+    width: var(--circle-size);
+    aspect-ratio: 1;
+
+    @for $i from 1 through $total-items {
+      $angle: calc(360deg / $total-items) * $i;
+
+      &:nth-child(#{$i}) {
+        --pulse-delay: #{500ms * $i};
+
+        transform: rotate(calc(-1 * #{$angle})) translate(4rem) rotate(#{$angle}) scale(0.2);
+        animation: move-#{$i} 0.5s ease #{0.25s * $i} forwards;
+      }
+
+      @keyframes move-#{$i} {
+        100% {
+          transform: rotate(calc(-1 * #{$angle})) translate($radius) rotate(#{$angle}) scale(1);
+        }
+      }
+    }
+
+    &:hover {
+      --pulse-play-state: paused;
+
+      #{$self}__text {
+        opacity: 1;
+      }
+    }
+
+    &--analytics {
+      --clr-icon: var(--blue-dark);
+      --clr-bg-circle: var(--blue-light);
+      --clr-bg-text: var(--blue-dark);
+    }
+
+    &--calendar {
+      --clr-icon: var(--green-dark);
+      --clr-bg-circle: var(--green-light);
+      --clr-bg-text: var(--green-dark);
+    }
+
+    &--coconut {
+      --clr-icon: var(--brown-dark);
+      --clr-bg-circle: var(--brown-light);
+      --clr-bg-text: var(--brown-dark);
+    }
+
+    &--finger-print {
+      --clr-icon: var(--red-dark);
+      --clr-bg-circle: var(--red-light);
+      --clr-bg-text: var(--red-dark);
+    }
+
+    &--law {
+      --clr-icon: var(--orange-dark);
+      --clr-bg-circle: var(--orange-light);
+      --clr-bg-text: var(--orange-dark);
+    }
+
+    &--logout {
+      --clr-icon: var(--yellow-dark);
+      --clr-bg-circle: var(--yellow-light);
+      --clr-bg-text: var(--yellow-dark);
+    }
+
+    &--person {
+      --clr-icon: var(--pink-dark);
+      --clr-bg-circle: var(--pink-light);
+      --clr-bg-text: var(--pink-dark);
+    }
+
+    &--plane {
+      --clr-icon: var(--purple-dark);
+      --clr-bg-circle: var(--purple-light);
+      --clr-bg-text: var(--purple-dark);
+    }
+  }
+
+  &__pulse {
+    width: 100%;
+    border-radius: 50%;
+    box-shadow: 0 6px 12px rgb(19 50 82 / 10%);
+    background-color: var(--clr-bg-circle, #ff69b4);
+    animation: pulse 1.5s calc(var(--pulse-delay, 0s) + 4s) ease-in-out infinite both;
+    animation-play-state: var(--pulse-play-state, running);
+    aspect-ratio: 1;
+  }
+
+  &__icon,
+  &__text {
+    display: grid;
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    text-align: center;
+    place-items: center;
+  }
+
+  &__icon {
+    opacity: 0;
+    animation: fadeIn 0.25s ease calc((var(--pulse-delay) / 2) + 2s) forwards, rotate 60s linear 4s infinite reverse forwards;
+    animation-play-state: var(--rotate-play-state, running);
+  }
+
+  &__text {
+    opacity: 0;
+    background-color: var(--clr-bg-text, #ffc0cb);
+    color: var(--white-light);
+    transition: opacity 0.5s ease-in-out;
+    animation: rotate 60s linear 4s infinite reverse forwards;
+    animation-play-state: var(--rotate-play-state, running);
+  }
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(0.9);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
