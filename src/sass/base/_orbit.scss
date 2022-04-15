@@ -2,15 +2,6 @@
   --img-size: 11.25rem;
   --circle-size: 7.5rem;
 
-  $total-items: 8; // number of circles
-  $radius: 13rem;
-
-  @keyframes move {
-    100% {
-      --transformMove: 14rem;
-    }
-  }
-
   $self: &;
 
   display: grid;
@@ -42,7 +33,7 @@
     opacity: 0;
     z-index: 1;
     margin: var(--hover-area);
-    animation: fadeIn 1s ease 5s forwards;
+    animation: fadeIn 1s ease 4.5s forwards;
   }
 
   &__circles {
@@ -61,6 +52,9 @@
   }
 
   &__circle {
+    $total-items: 8; // number of circles
+    $radius: 13rem;
+
     position: absolute;
     width: var(--circle-size);
     aspect-ratio: 1;
@@ -161,7 +155,7 @@
 
   &__icon {
     opacity: 0;
-    animation: fadeIn 0.25s ease calc((var(--pulse-delay) / 2) + 2s) forwards, rotate 60s linear 4s infinite reverse forwards;
+    animation: fadeIn 0.5s ease calc((var(--pulse-delay) / 2) + 2s) forwards, rotate 60s linear 4s infinite reverse forwards;
     animation-play-state: var(--rotate-play-state, running);
   }
 
