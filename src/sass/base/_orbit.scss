@@ -169,7 +169,12 @@
   }
 }
 
+// For Safari I need to set the 0% otherwise it won't rotoate
 @keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+
   100% {
     transform: rotate(360deg);
   }
@@ -190,6 +195,10 @@
 }
 
 @keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
   100% {
     opacity: 1;
   }
